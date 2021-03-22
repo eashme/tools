@@ -9,7 +9,7 @@ type Options struct {
 	maxRetry   int
 	bufferSize int
 	maxWorker  int
-	DeadLine time.Duration
+	DeadLine   time.Duration
 }
 
 type IConsumer interface {
@@ -19,5 +19,5 @@ type IConsumer interface {
 
 type IProducer interface {
 	// 发送msg 的函数
-	SendMsg(msg string) error
+	SendMsg(msg ...[]byte) error
 }

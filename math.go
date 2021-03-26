@@ -48,17 +48,14 @@ func RandStr(cnt int) string {
 }
 
 func RandIntN(n int) int {
-	randOnce.Do(func() {
-		// 设置一次随机数种子,每次整个程序启动时更新
-		rand.Seed(time.Now().Unix())
-	})
+	// 设置一次随机数种子,每次整个程序启动时更新
+	rand.Seed(time.Now().Unix())
 	return rand.Intn(n)
 }
 
 var (
 	worker     *goSnowFlake.IdWorker
 	snowOnce   sync.Once
-	randOnce   sync.Once
 	randStrSet = mWord + strings.ToUpper(mWord) + num
 )
 

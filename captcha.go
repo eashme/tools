@@ -9,16 +9,19 @@ import (
 )
 
 const (
-	MaxColor      = 2<<7
-	CaptchaHeight = 120
-	CaptchaWight  = 240
-	NoiseCnt      = 2
-	LineOpt       = 3
+	MaxColor = 2 << 7
+	LineOpt  = 3
 )
 
+type CaptchaOpts struct {
+	Height   int
+	Width    int
+	NoiseCnt int
+}
+
 // 生成数学字符串验证码图片
-func MathCaptcha() (id, aws string, img string, err error) {
-	driver := base64Captcha.NewDriverMath(CaptchaHeight, CaptchaWight, NoiseCnt, LineOpt, &color.RGBA{
+func MathCaptcha(opt *CaptchaOpts) (id, aws string, img string, err error) {
+	driver := base64Captcha.NewDriverMath(opt.Height, opt.Width, opt.NoiseCnt, LineOpt, &color.RGBA{
 		R: uint8(RandIntN(MaxColor)),
 		G: uint8(RandIntN(MaxColor)),
 		B: uint8(RandIntN(MaxColor)),
@@ -35,8 +38,8 @@ func MathCaptcha() (id, aws string, img string, err error) {
 }
 
 // 生成中文验证码
-func CharCaptcha() (id, aws string, img io.Reader, err error) {
-	driver := base64Captcha.NewDriverLanguage(CaptchaHeight, CaptchaWight, NoiseCnt, LineOpt, 4, &color.RGBA{
+func CharCaptcha(opt *CaptchaOpts) (id, aws string, img io.Reader, err error) {
+	driver := base64Captcha.NewDriverLanguage(opt.Height, opt.Width, opt.NoiseCnt, LineOpt, 4, &color.RGBA{
 		R: uint8(RandIntN(MaxColor)),
 		G: uint8(RandIntN(MaxColor)),
 		B: uint8(RandIntN(MaxColor)),
